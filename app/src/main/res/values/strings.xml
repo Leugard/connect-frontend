@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Connect</string>
+    <string name="version_info">Version 1.0.0</string>
 </resources>
