@@ -10,15 +10,21 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.OvershootInterpolator
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.addListener
 import com.luna.connect.databinding.ActivitySplashBinding
-import com.luna.connect.ui.auth.WelcomeActivity
 import kotlin.random.Random
 import com.luna.connect.R
+import com.luna.connect.ui.auth.OnboardingActivity
+import com.luna.connect.ui.auth.WelcomeActivity
+import com.luna.connect.viewmodel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
+    private val userViewModel: UserViewModel by viewModels()
 
     private val animationDuration = 800L
     private val splashDisplayTime = 3000L
@@ -36,6 +42,8 @@ class SplashActivity : AppCompatActivity() {
 
         startAnimations()
         navigateToNextScreen()
+
+        userViewModel.fetchUser()
     }
 
     private fun startAnimations() {
@@ -183,11 +191,19 @@ class SplashActivity : AppCompatActivity() {
         }, 2000)
     }
 
-    private fun navigateToNextScreen(){
+    private fun navigateToNextScreen() {
         Handler(Looper.getMainLooper()).postDelayed({
-            // Check if user is logged in here
-            val intent = Intent(this, WelcomeActivity::class.java)
-            startActivity(intent)
+            userViewModel.user.observe(this) { result ->
+                result.onSuccess { user ->
+                    if (user.is_onboarded) {
+                        // TODO: navigate to home
+                    } else {
+                        startActivity(Intent(this, OnboardingActivity::class.java))
+                    }
+                }.onFailure {
+                    startActivity(Intent(this, WelcomeActivity::class.java))
+                }
+            }
 
             // Custom transition animation
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)

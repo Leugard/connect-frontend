@@ -19,9 +19,11 @@ interface ApiService {
     @Multipart
     @POST("complete-onboarding")
     suspend fun completeOnboarding(
-        @Header("Authorization") token: String,
         @Part("username") username: RequestBody,
         @Part("bio") bio: RequestBody,
         @Part profilePic: MultipartBody.Part?,
     ): Response<ApiResponse<MessageResponse>>
+
+    @GET("me")
+    suspend fun getMe(): Response<ApiResponse<UserResponse>>
 }

@@ -8,7 +8,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.luna.connect.R
 import com.luna.connect.databinding.ActivityWelcomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
 

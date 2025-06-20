@@ -19,7 +19,9 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.google.android.material.textfield.TextInputLayout
 import com.luna.connect.R
 import com.luna.connect.databinding.ActivityLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
@@ -27,5 +29,25 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupButtonListeners()
+    }
+
+    private fun setupButtonListeners() {
+        binding.forgotPassword.setOnClickListener {
+            // TODO: Implement forgot password
+        }
+
+        binding.loginBtn.setOnClickListener {
+            // TODO: Implement login
+        }
+
+        binding.google.setOnClickListener {
+            // TODO: implement google login
+        }
+
+        binding.goToRegister.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
 }

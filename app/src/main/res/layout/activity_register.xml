@@ -151,7 +151,7 @@
                 android:textSize="14sp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/login_btn"
+                android:id="@+id/register_btn"
                 style="@style/Widget.Material3.Button"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
@@ -219,6 +219,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/google"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
